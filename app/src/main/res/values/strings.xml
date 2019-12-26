@@ -1,8 +1,7 @@
 <resources>
-    <string name="app_name">Submission 3 Kotlin</string>
+    <string name="app_name">FootBaller 3</string>
     <string name="title_league">Leagues</string>
     <string name="title_favorite">Favorites</string>
-    <string name="title_notifications">Notifications</string>
 
     <string-array name="league_id">
         <item>4328</item>
@@ -64,4 +63,6 @@
     <string name="score">-</string>
     <string name="team_name">Barcelona FC</string>
     <string name="string_vs">VS</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
 </resources>
