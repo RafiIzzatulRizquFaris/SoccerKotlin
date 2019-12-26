@@ -7,13 +7,13 @@
 
     <fragment
         android:id="@+id/navigation_league"
-        android:name="com.example.submission3kotlin.ui.LeagueFragment"
+        android:name="com.example.submission3kotlin.ui.fragment.LeagueFragment"
         android:label="@string/title_league"
         tools:layout="@layout/fragment_league" />
 
     <fragment
         android:id="@+id/navigation_favorite"
-        android:name="com.example.submission3kotlin.ui.FavoriteFragment"
+        android:name="com.example.submission3kotlin.ui.fragment.FavoriteFragment"
         android:label="@string/title_favorite"
         tools:layout="@layout/fragment_favorite" />
 </navigation>
