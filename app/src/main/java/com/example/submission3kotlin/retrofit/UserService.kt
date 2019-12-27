@@ -8,7 +8,7 @@ import retrofit2.http.Query
 interface UserService {
     @GET("lookupleague.php")
     fun responseDetailLeague(
-        @Query("id") id: Int
+        @Query("id") id: String
     ): Observable<DetailLeague>
 
     @GET("eventspastleague.php")
