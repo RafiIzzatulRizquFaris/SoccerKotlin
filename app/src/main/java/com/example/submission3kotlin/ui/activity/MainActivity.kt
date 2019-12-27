@@ -1,31 +1,25 @@
 package com.example.submission3kotlin.ui.activity
 
+import android.os.Build
 import android.os.Bundle
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
+import androidx.fragment.app.FragmentPagerAdapter
 import com.example.submission3kotlin.R
+import com.example.submission3kotlin.adapter.HomeTabAdapter
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val navView: BottomNavigationView = findViewById(R.id.nav_view)
-
-        val navController = findNavController(R.id.nav_host_fragment)
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        val appBarConfiguration = AppBarConfiguration(
-            setOf(
-                R.id.navigation_league,
-                R.id.navigation_favorite
+        val sectionAdapter: FragmentPagerAdapter = HomeTabAdapter(this, supportFragmentManager)
+        main_view_pager.adapter = sectionAdapter
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) main_tab_layout.setTabTextColors(
+            R.color.colorPrimaryDark, getColor(
+                R.color.colorWhite
             )
         )
-        setupActionBarWithNavController(navController, appBarConfiguration)
-        navView.setupWithNavController(navController)
+        main_tab_layout.setupWithViewPager(main_view_pager)
     }
 }
