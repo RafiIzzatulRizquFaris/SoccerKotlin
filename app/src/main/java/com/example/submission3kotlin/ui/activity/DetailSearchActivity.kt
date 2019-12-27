@@ -51,7 +51,7 @@ class DetailSearchActivity : AppCompatActivity(), DetailSearchContract.View {
             val result = select(Favorite.TABLE_NAME)
                 .whereArgs("(ID_EVENT = {idevent})", "idevent" to idevent)
             val favorite = result.parseList(classParser<Favorite>())
-            if (favorite.isEmpty()) isFavorite = false
+            if (favorite.isNotEmpty()) isFavorite = true
         }
     }
 
