@@ -13,7 +13,7 @@ class DetailLeaguePresenter(val view: DetailLeagueContract.View): DetailLeagueCo
         val retrofit = RetrofitClient.getClient()
             .create(UserService::class.java)
         CompositeDisposable().add(
-            retrofit.responseDetailLeague(id.toInt())
+            retrofit.responseDetailLeague(id)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(
