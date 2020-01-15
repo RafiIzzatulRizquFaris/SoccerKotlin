@@ -64,5 +64,10 @@
     <string name="team_name">Barcelona FC</string>
     <string name="string_vs">VS</string>
 
+    <string name="title_match">Match</string>
+    <string name="title_team">Team</string>
+    <string name="title_standings">Standings</string>
+
     <!-- TODO: Remove or change this placeholder text -->
+    <string name="liverpool">Liverpool</string>
 </resources>
