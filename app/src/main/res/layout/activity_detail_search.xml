@@ -13,7 +13,6 @@
         android:padding="8dp">
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/cardContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:elevation="4dp">
@@ -28,7 +27,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/linearCard"
                 android:orientation="horizontal"
                 android:baselineAligned="false">
 
