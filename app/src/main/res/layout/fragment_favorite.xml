@@ -6,17 +6,22 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/swipe_refresh"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/favorite_tab_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorBlue"
+        app:tabGravity="fill"
+        app:tabMaxWidth="0dp"
+        app:tabMode="fixed">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_favorite"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="16dp"
-            tools:listitem="@layout/item_match" />
+    </com.google.android.material.tabs.TabLayout>
 
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/favorite_view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorWhite">
+
+    </androidx.viewpager.widget.ViewPager>
 </LinearLayout>
