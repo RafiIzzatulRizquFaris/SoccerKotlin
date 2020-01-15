@@ -5,4 +5,5 @@
     <color name="colorAccent">#D81B60</color>
     <color name="colorWhite">#fff</color>
     <color name="colorBlue">#5b92e5</color>
+    <color name="forOverView">#e2ead1</color>
 </resources>
