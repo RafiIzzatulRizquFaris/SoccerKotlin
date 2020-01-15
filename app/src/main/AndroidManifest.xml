@@ -11,6 +11,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".ui.activity.DetailStandingsActivity"></activity>
+        <activity android:name=".ui.activity.DetailFavoriteTeamActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.activity.MainActivity" />
+        </activity>
+        <activity android:name=".ui.activity.DetailTeamActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.activity.MainActivity" />
+        </activity>
+        <activity android:name=".ui.activity.SearchTeamActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.activity.MainActivity" />
+        </activity>
         <activity android:name=".ui.activity.DetailFavoriteActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -21,7 +37,11 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.activity.MainActivity" />
         </activity>
-        <activity android:name=".ui.activity.DetailEventActivity"/>
+        <activity android:name=".ui.activity.DetailEventActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.activity.MainActivity" />
+        </activity>
         <activity android:name=".ui.activity.SearchEventActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
