@@ -75,7 +75,6 @@
             </ScrollView>
 
             <LinearLayout
-                android:id="@+id/linearOne"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -110,7 +109,6 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/linearTwo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
