@@ -9,6 +9,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.submission3kotlin.AppSchedulerProvider
+import com.example.submission3kotlin.DataRepositoryImpl
 
 import com.example.submission3kotlin.R
 import com.example.submission3kotlin.adapter.AdapterNextEvent
@@ -16,6 +18,8 @@ import com.example.submission3kotlin.contract.NextMatchContract
 import com.example.submission3kotlin.gone
 import com.example.submission3kotlin.model.Event
 import com.example.submission3kotlin.presenter.NextMatchPresenter
+import com.example.submission3kotlin.retrofit.RetrofitClient
+import com.example.submission3kotlin.retrofit.UserService
 import com.example.submission3kotlin.ui.activity.DetailEventActivity
 import kotlinx.android.synthetic.main.fragment_next_match.*
 import org.jetbrains.anko.support.v4.startActivity
@@ -38,8 +42,11 @@ class NextMatchFragment : Fragment(), NextMatchContract.View {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        mPresenter = NextMatchPresenter(this)
         val strtext = arguments!!.getString("idleagues")
+        val scheduler = AppSchedulerProvider()
+        val retrofitClient = RetrofitClient.getClient().create(UserService::class.java)
+        val request = DataRepositoryImpl(retrofitClient)
+        mPresenter = NextMatchPresenter(this, scheduler, request)
         Log.e("NextMatchFragment", strtext!!)
         rv_next_match.layoutManager = LinearLayoutManager(context)
         rv_next_match.setHasFixedSize(true)
