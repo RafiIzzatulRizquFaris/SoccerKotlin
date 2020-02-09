@@ -9,6 +9,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.submission3kotlin.AppSchedulerProvider
+import com.example.submission3kotlin.DataRepositoryImpl
 
 import com.example.submission3kotlin.R
 import com.example.submission3kotlin.adapter.AdapterPreviousEvent
@@ -16,6 +18,8 @@ import com.example.submission3kotlin.contract.PreviousMatchContract
 import com.example.submission3kotlin.gone
 import com.example.submission3kotlin.model.Event
 import com.example.submission3kotlin.presenter.PreviousMatchPresenter
+import com.example.submission3kotlin.retrofit.RetrofitClient
+import com.example.submission3kotlin.retrofit.UserService
 import com.example.submission3kotlin.ui.activity.DetailEventActivity
 import kotlinx.android.synthetic.main.fragment_previous_match.*
 import org.jetbrains.anko.support.v4.startActivity
@@ -38,7 +42,10 @@ class PreviousMatchFragment : Fragment(), PreviousMatchContract.View {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        mPresenter = PreviousMatchPresenter(this)
+        val scheduler = AppSchedulerProvider()
+        val retrofitClient = RetrofitClient.getClient().create(UserService::class.java)
+        val request = DataRepositoryImpl(retrofitClient)
+        mPresenter = PreviousMatchPresenter(this, scheduler, request)
         val strtext = arguments!!.getString("idleagues")
         Log.e("PreviousMatchFragment", strtext!!)
         rv_previous_match.layoutManager = LinearLayoutManager(context)
