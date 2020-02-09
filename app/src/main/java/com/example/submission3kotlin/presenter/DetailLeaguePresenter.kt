@@ -1,21 +1,21 @@
 package com.example.submission3kotlin.presenter
 
 import android.util.Log
+import com.example.submission3kotlin.DataRepositoryImpl
+import com.example.submission3kotlin.SchedulerProvider
 import com.example.submission3kotlin.contract.DetailLeagueContract
-import com.example.submission3kotlin.retrofit.RetrofitClient
-import com.example.submission3kotlin.retrofit.UserService
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
 
-class DetailLeaguePresenter(val view: DetailLeagueContract.View): DetailLeagueContract.Presenter {
+class DetailLeaguePresenter(
+    val view: DetailLeagueContract.View,
+    private val scheduler: SchedulerProvider,
+    private val request: DataRepositoryImpl
+): DetailLeagueContract.Presenter {
     override fun getDetailLeague(id: String) {
-        val retrofit = RetrofitClient.getClient()
-            .create(UserService::class.java)
         CompositeDisposable().add(
-            retrofit.responseDetailLeague(id)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
+            request.getDetailLeague(id)
+                .observeOn(scheduler.ui())
+                .subscribeOn(scheduler.io())
                 .subscribe(
                     {
                         view.setDetailLeague(it.leagues)
