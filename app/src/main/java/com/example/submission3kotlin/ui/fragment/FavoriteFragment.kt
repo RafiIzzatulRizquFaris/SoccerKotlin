@@ -1,27 +1,18 @@
 package com.example.submission3kotlin.ui.fragment
 
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat.getColor
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.fragment.app.FragmentPagerAdapter
 import com.example.submission3kotlin.R
-import com.example.submission3kotlin.adapter.AdapterFavorite
-import com.example.submission3kotlin.database
-import com.example.submission3kotlin.model.Favorite
-import com.example.submission3kotlin.ui.activity.DetailFavoriteActivity
+import com.example.submission3kotlin.adapter.FavoriteTabAdapter
 import kotlinx.android.synthetic.main.fragment_favorite.*
-import org.jetbrains.anko.db.classParser
-import org.jetbrains.anko.db.select
-import org.jetbrains.anko.design.snackbar
-import org.jetbrains.anko.support.v4.onRefresh
-import org.jetbrains.anko.support.v4.startActivity
 
 class FavoriteFragment : Fragment() {
-
-    private var matchList: MutableList<Favorite> = mutableListOf()
-    private lateinit var adapter: AdapterFavorite
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,30 +24,13 @@ class FavoriteFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        rv_favorite.layoutManager = LinearLayoutManager(context)
-        adapter = AdapterFavorite(context!!, matchList){
-            startActivity<DetailFavoriteActivity>("detail_favorite" to it)
-        }
-        rv_favorite.adapter = adapter
-        swipe_refresh.onRefresh {
-            showFavorite()
-        }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        showFavorite()
-    }
-
-    private fun showFavorite() {
-        matchList.clear()
-        context?.database?.use {
-            swipe_refresh.isRefreshing = false
-            val result = select(Favorite.TABLE_NAME)
-            val favorite = result.parseList(classParser<Favorite>())
-            matchList.addAll(favorite)
-            adapter.notifyDataSetChanged()
-            if(favorite.isEmpty()) swipe_refresh.snackbar("Your Favorite List is Empty")
-        }
+        val sectionAdapter: FragmentPagerAdapter = FavoriteTabAdapter(context!!, fragmentManager!!)
+        favorite_view_pager.adapter = sectionAdapter
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) favorite_tab_layout.setTabTextColors(
+            R.color.colorPrimaryDark, getColor(
+                context!!, R.color.colorWhite
+            )
+        )
+        favorite_tab_layout.setupWithViewPager(favorite_view_pager)
     }
 }
