@@ -9,6 +9,8 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
+import com.example.submission3kotlin.AppSchedulerProvider
+import com.example.submission3kotlin.DataRepositoryImpl
 import com.example.submission3kotlin.R
 import com.example.submission3kotlin.contract.DetailSearchContract
 import com.example.submission3kotlin.database
@@ -16,6 +18,8 @@ import com.example.submission3kotlin.model.Event
 import com.example.submission3kotlin.model.Favorite
 import com.example.submission3kotlin.model.Team
 import com.example.submission3kotlin.presenter.DetailSearchPresenter
+import com.example.submission3kotlin.retrofit.RetrofitClient
+import com.example.submission3kotlin.retrofit.UserService
 import kotlinx.android.synthetic.main.activity_detail_favorite.*
 import org.jetbrains.anko.db.classParser
 import org.jetbrains.anko.db.delete
@@ -34,7 +38,10 @@ class DetailFavoriteActivity : AppCompatActivity(), DetailSearchContract.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_favorite)
-        mPresenter = DetailSearchPresenter(this)
+        val scheduler = AppSchedulerProvider()
+        val retrofitClient = RetrofitClient.getClient().create(UserService::class.java)
+        val request = DataRepositoryImpl(retrofitClient)
+        mPresenter = DetailSearchPresenter(this, scheduler, request)
         val event: Favorite? = intent.getParcelableExtra("detail_favorite")
         idevent = event!!.idEvent!!
         idhometeam = event.imgHome!!
