@@ -3,6 +3,7 @@ package com.example.submission3kotlin
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import com.example.submission3kotlin.model.Favorite
+import com.example.submission3kotlin.model.FavoriteTeam
 import org.jetbrains.anko.db.*
 
 class MyDatabaseOpenHelper(context: Context): ManagedSQLiteOpenHelper(context, "MyFavoriteDB.db", null, 1){
@@ -32,10 +33,19 @@ class MyDatabaseOpenHelper(context: Context): ManagedSQLiteOpenHelper(context, "
             Favorite.IMG_AWAY to TEXT,
             Favorite.DATE_EVENT to TEXT
             )
+
+        db.createTable(
+            FavoriteTeam.TABLE_NAME, true,
+            FavoriteTeam.ID to INTEGER + PRIMARY_KEY + AUTOINCREMENT,
+            FavoriteTeam.ID_TEAM to TEXT + UNIQUE,
+            FavoriteTeam.STR_TEAM to TEXT,
+            FavoriteTeam.IMG_TEAM to TEXT
+        )
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
         db.dropTable(Favorite.TABLE_NAME, true)
+        db.dropTable(FavoriteTeam.TABLE_NAME, true)
     }
 }
 
