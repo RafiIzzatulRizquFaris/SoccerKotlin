@@ -4,12 +4,16 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.submission3kotlin.AppSchedulerProvider
+import com.example.submission3kotlin.DataRepositoryImpl
 import com.example.submission3kotlin.R
 import com.example.submission3kotlin.adapter.AdapterSearchEvent
 import com.example.submission3kotlin.contract.SearchMatchContract
 import com.example.submission3kotlin.gone
 import com.example.submission3kotlin.model.SearchEvent
 import com.example.submission3kotlin.presenter.SearchMatchPresenter
+import com.example.submission3kotlin.retrofit.RetrofitClient
+import com.example.submission3kotlin.retrofit.UserService
 import kotlinx.android.synthetic.main.activity_search_event.*
 import org.jetbrains.anko.startActivity
 
@@ -21,7 +25,10 @@ class SearchEventActivity : AppCompatActivity(), SearchMatchContract.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search_event)
-        mPresenter = SearchMatchPresenter(this)
+        val scheduler = AppSchedulerProvider()
+        val retrofitClient = RetrofitClient.getClient().create(UserService::class.java)
+        val request = DataRepositoryImpl(retrofitClient)
+        mPresenter = SearchMatchPresenter(this, scheduler, request)
         val strQuery = intent?.getStringExtra("query_event")
         supportActionBar!!.title = "Result For : $strQuery"
         rv_search_match.layoutManager = LinearLayoutManager(this)
