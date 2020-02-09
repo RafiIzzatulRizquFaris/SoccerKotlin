@@ -1,6 +1,8 @@
 package com.example.submission3kotlin.presenter
 
 import android.util.Log
+import com.example.submission3kotlin.DataRepositoryImpl
+import com.example.submission3kotlin.SchedulerProvider
 import com.example.submission3kotlin.contract.DetailSearchContract
 import com.example.submission3kotlin.retrofit.RetrofitClient
 import com.example.submission3kotlin.retrofit.UserService
@@ -8,15 +10,18 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
-class DetailSearchPresenter (val view: DetailSearchContract.View): DetailSearchContract.Presenter {
+class DetailSearchPresenter (val view: DetailSearchContract.View,
+                             private val scheduler: SchedulerProvider,
+                             private val request: DataRepositoryImpl
+): DetailSearchContract.Presenter {
 
     private val retrofit = RetrofitClient.getClient().create(UserService::class.java)
 
     override fun getDetailSearch(id: String) {
         CompositeDisposable().add(
-            retrofit.responseDetailEvent(id)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
+            request.getDetailEvent(id)
+                .observeOn(scheduler.ui())
+                .subscribeOn(scheduler.io())
                 .subscribe(
                     {
                         view.setDetailSearch(it.events)
