@@ -9,6 +9,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
+import com.example.submission3kotlin.AppSchedulerProvider
+import com.example.submission3kotlin.DataRepositoryImpl
 import com.example.submission3kotlin.R
 import com.example.submission3kotlin.contract.DetailSearchContract
 import com.example.submission3kotlin.database
@@ -17,6 +19,8 @@ import com.example.submission3kotlin.model.Favorite
 import com.example.submission3kotlin.model.SearchEvent
 import com.example.submission3kotlin.model.Team
 import com.example.submission3kotlin.presenter.DetailSearchPresenter
+import com.example.submission3kotlin.retrofit.RetrofitClient
+import com.example.submission3kotlin.retrofit.UserService
 import kotlinx.android.synthetic.main.activity_detail_search.*
 import org.jetbrains.anko.db.classParser
 import org.jetbrains.anko.db.delete
@@ -35,7 +39,10 @@ class DetailSearchActivity : AppCompatActivity(), DetailSearchContract.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_search)
-        mPresenter = DetailSearchPresenter(this)
+        val scheduler = AppSchedulerProvider()
+        val retrofitClient = RetrofitClient.getClient().create(UserService::class.java)
+        val request = DataRepositoryImpl(retrofitClient)
+        mPresenter = DetailSearchPresenter(this, scheduler, request)
         val event: SearchEvent? = intent.getParcelableExtra("detail_search")
         idevent = event!!.idEvent!!
         idhometeam = event.idHomeTeam!!
