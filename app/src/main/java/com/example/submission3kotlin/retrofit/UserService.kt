@@ -35,4 +35,34 @@ interface UserService {
     fun responseTeam(
         @Query("id") id:String
     ) : Observable<DetailTeam>
+
+    @GET("lookupplayer.php")
+    fun responseDetailPlayer(
+        @Query("id") id: String
+    ) : Observable<DetailPlayer>
+
+    @GET("lookuptable.php")
+    fun responseStandings(
+        @Query("l") id: String
+    ) : Observable<Standings>
+
+    @GET("searchteams.php")
+    fun responseSearchTeam(
+        @Query("t") query: String
+    ) : Observable<SearchTeam>
+
+    @GET("lookup_all_teams.php")
+    fun responseListTeam(
+        @Query("id") id: String
+    ) : Observable<ListTeam>
+
+    @GET("eventsnext.php")
+    fun responseNextTeam(
+        @Query("id") id: String
+    ) : Observable<Events>
+
+    @GET("eventslast.php")
+    fun responsePreviousTeam(
+        @Query("id") id: String
+    ) : Observable<Events>
 }
