@@ -11,6 +11,8 @@ import android.view.Menu
 import android.widget.SearchView
 import androidx.fragment.app.FragmentPagerAdapter
 import com.bumptech.glide.Glide
+import com.example.submission3kotlin.AppSchedulerProvider
+import com.example.submission3kotlin.DataRepositoryImpl
 import com.example.submission3kotlin.R
 import com.example.submission3kotlin.adapter.TabFragmentAdapter
 import com.example.submission3kotlin.contract.DetailLeagueContract
@@ -18,6 +20,8 @@ import com.example.submission3kotlin.gone
 import com.example.submission3kotlin.model.Item
 import com.example.submission3kotlin.model.League
 import com.example.submission3kotlin.presenter.DetailLeaguePresenter
+import com.example.submission3kotlin.retrofit.RetrofitClient
+import com.example.submission3kotlin.retrofit.UserService
 import kotlinx.android.synthetic.main.activity_detail_league.*
 
 class DetailLeagueActivity : AppCompatActivity(), DetailLeagueContract.View {
@@ -28,8 +32,11 @@ class DetailLeagueActivity : AppCompatActivity(), DetailLeagueContract.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_league)
-        mPresenter = DetailLeaguePresenter(this)
         val intentLeague: Item? = intent.getParcelableExtra("detail")
+        val scheduler = AppSchedulerProvider()
+        val retrofitClient = RetrofitClient.getClient().create(UserService::class.java)
+        val request = DataRepositoryImpl(retrofitClient)
+        mPresenter = DetailLeaguePresenter(this, scheduler, request)
         myIdLeague = intentLeague!!.id!!.toString()
         Glide.with(this).load(intentLeague.image).into(posterLeague)
         mPresenter.getDetailLeague(myIdLeague!!)
