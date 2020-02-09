@@ -1,9 +1,13 @@
 package com.example.submission3kotlin.model
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
 data class DetailTeam(
     var teams: List<Team>
 )
 
+@Parcelize
 data class Team(
     var idLeague: String?,
     var idSoccerXML: String?,
@@ -55,4 +59,4 @@ data class Team(
     var strTwitter: String?,
     var strWebsite: String?,
     var strYoutube: String?
-)
+) : Parcelable
