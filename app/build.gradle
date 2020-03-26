@@ -63,7 +63,7 @@ dependencies {
     implementation 'com.amitshekhar.android:android-networking:1.0.2'
     implementation "io.reactivex.rxjava3:rxjava:3.0.0"
     implementation "io.reactivex.rxjava2:rxandroid:2.1.1"
-    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.7.1'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.8.1'
     implementation 'info.androidhive:fontawesome:0.0.5'
 
     implementation "org.jetbrains.anko:anko:$anko_version"
